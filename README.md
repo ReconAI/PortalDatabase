@@ -5,7 +5,7 @@ Database diagram can be found [here](https://dbdiagram.io/d/5ebafd9239d18f5553ff
 
 Get latest schema creation script from dbdiagram:<br>
 <p align="center">
-  <img src="images/dbdiagram_export.png" height="250" width="250" title="get export script"/>
+  <img src="images/dbdiagram_export.png" height="302" width="397" title="get export script"/>
 </p>
 
 ## Solution contents
@@ -27,21 +27,21 @@ putty.exe -v -ssh -2 -C -L 5432:recona-dev.cluster-cskeilxqtugz.eu-central-1.rds
 ```
 If connection was successful you would see something like this:<br>
 <p align="center">
-  <img src="images/portForwardingSuccess.png" height="250" width="250" title="get export script"/>
+  <img src="images/portForwardingSuccess.png" height="423" width="664" title="get export script"/>
 </p>
 
 5. Install [pgAdmin](https://www.pgadmin.org/)
 6. Turn on pgAdmin
 7. Setup connection as shown on the image
 <p align="center">
-  <img src="images/pgAdminSettings.png" height="250" width="250" title="pgAdmin settings"/>
+  <img src="images/pgAdminSettings.png" height="618" width="966" title="pgAdmin settings"/>
 </p>
 
 8. Enter Master username and password
 9. Connect to the database
 10. Access ReconAI database
 <p align="center">
-  <img src="images/pgAdminSchema.png" height="250" width="250" title="pgAdmin schema"/>
+  <img src="images/pgAdminSchema.png" height="394" width="376" title="pgAdmin schema"/>
 </p>
 
 11. Press 'Query Tool' button to create a query (apply latest version of the database)
