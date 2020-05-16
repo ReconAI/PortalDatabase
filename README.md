@@ -1,4 +1,6 @@
 # Portal Database
+Latest script update: 5/16/2020
+
 Database schema and table data<br><br>
 
 Database diagram can be found [here](https://dbdiagram.io/d/5ebafd9239d18f5553ff19bc)<br><br>
