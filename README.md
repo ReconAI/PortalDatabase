@@ -1,5 +1,5 @@
 # Portal Database
-Latest script update: 5/16/2020
+Latest script update: 5/16/2020<br>
 
 Database schema and table data<br><br>
 
