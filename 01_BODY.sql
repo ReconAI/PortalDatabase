@@ -410,6 +410,10 @@ CREATE TABLE "DeviceParameters" (
   "radarDataJSON" json
 );
 
+---------------------------------------------------------
+--------------- Settings tables -------------------------
+---------------------------------------------------------
+
 CREATE TABLE "TypeCode" (
   "typeName" varchar,
   "order" int,
@@ -419,6 +423,10 @@ CREATE TABLE "TypeCode" (
   "created_dt" timestamp,
   "created_by" varchar
 );
+
+---------------------------------------------------------
+--------------- ITMF tables  ---------------------------
+---------------------------------------------------------
 
 CREATE TABLE "DetectedObjects" (
   "id" SERIAL PRIMARY KEY,
@@ -457,6 +465,10 @@ CREATE TABLE "FileStorage" (
   "fileType" varchar(3),
   "link" varchar
 );
+
+---------------------------------------------------------
+--------------- Many-many-tables  -----------------------
+---------------------------------------------------------
 
 CREATE TABLE "ProjectEdgeNodes" (
   "projectId" int,
@@ -544,6 +556,10 @@ CREATE TABLE "FrameDatasetsProjects" (
   "frameDatasetId" int,
   "projectId" int
 );
+
+---------------------------------------------------------
+--------------- Foreign keys  ---------------------------
+---------------------------------------------------------
 
 ALTER TABLE "Users" ADD FOREIGN KEY ("organizationId") REFERENCES "Organisations" ("id");
 
