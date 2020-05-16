@@ -1,9 +1,7 @@
 # Portal Database
 Latest script update: 5/16/2020<br>
-
-Database schema and table data<br><br>
-
-Database diagram can be found [here](https://dbdiagram.io/d/5ebafd9239d18f5553ff19bc)<br><br>
+Database schema and table data<br>
+Database diagram can be found [here](https://dbdiagram.io/d/5ebafd9239d18f5553ff19bc)<br>
 
 Get latest schema creation script from dbdiagram:<br>
 <p align="center">
@@ -15,8 +13,7 @@ Project contains 3 scripts:
 1. 00_HEAD.sql - previous database cleanup. Drops all tables and views in cascade
 2. 01_BODY.sql - application of current schema. Script is similar to dbdiagram export
 3. 02_TAIL.sql - population of some tables with data (TypeCode)
-
-## Combine all three scripts into one and apply at the database
+**Combine all three scripts into one and apply at the database**
 
 ## AWS database connection (putty)
 
