@@ -1,97 +1,95 @@
 CREATE TABLE "Organisations" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
-  "VAT" varchar,
-  "main_firstname" varchar,
-  "main_lastname" varchar,
-  "main_address" varchar,
-  "main_phone" varchar,
-  "main_email" varchar,
-  "inv_firstname" varchar,
-  "inv_lastname" varchar,
-  "inv_address" varchar,
-  "inv_phone" varchar,
-  "inv_email" varchar
+  "id" SERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "name" varchar(255) UNIQUE NOT NULL,
+  "VAT" varchar(255),
+  "main_firstname" varchar(255),
+  "main_lastname" varchar(255),
+  "main_address" varchar(255),
+  "main_phone" varchar(255),
+  "main_email" varchar(255),
+  "inv_firstname" varchar(255),
+  "inv_lastname" varchar(255),
+  "inv_address" varchar(255),
+  "inv_phone" varchar(255),
+  "inv_email" varchar(255)
 );
 
 CREATE TABLE "Users" (
-  "id" int PRIMARY KEY,
-  "time_created" timestamp,
-  "organizationId" int,
-  "firstname" varchar,
-  "lastname" varchar,
-  "address" varchar,
-  "phone" varchar,
-  "email" varchar,
-  "created_dt" timestamp,
-  "username" varchar,
-  "password" varchar,
-  "user_level" varchar
+  "id" SERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "organizationId" int NOT NULL,
+  "firstname" varchar(255),
+  "lastname" varchar(255),
+  "address" varchar(255),
+  "phone" varchar(255),
+  "email" varchar(255),
+  "created_dt" timestamp DEFAULT (now()),
+  "username" varchar(255) UNIQUE,
+  "password" varchar(255),
+  "user_level" varchar(3)
 );
 
 CREATE TABLE "Licenses" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
-  "type" int,
-  "price" varchar,
-  "userId" int,
+  "id" SERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "name" varchar(255),
+  "license_type" varchar(3),
+  "price" varchar(255),
+  "userId" int NOT NULL,
   "nextPayment" timestamp,
   "purchaseDate" timestamp,
   "terminationDate" timestamp
 );
 
 CREATE TABLE "Projects" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
+  "id" SERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "name" varchar(255),
   "decription" varchar,
   "organizationId" int,
   "ecosystemId" int,
   "featuremodelId" int,
-  "status" varchar,
+  "status" varchar(255),
   "settingsJSON" json
 );
 
 CREATE TABLE "Ecosystems" (
-  "id" SERIAL PRIMARY KEY,
-  "organizationId" int
+  "id" SERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "organizationId" int NOT NULL
 );
 
 CREATE TABLE "EdgeNodes" (
-  "id" SERIAL PRIMARY KEY,
-  "organisationId" int,
+  "id" SERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "organisationId" int NOT NULL,
   "featureModelsJSON" json,
   "featureInstancesJSON" json,
   "dockerInstanceId" int
 );
 
 CREATE TABLE "DeviceInstances" (
-  "id" SERIAL PRIMARY KEY,
-  "edgeNodeId" int,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "deviceClassId" int,
   "serial" int,
   "parametersJSON" json
 );
 
 CREATE TABLE "DeviceClasses" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "dockerBase" varchar,
   "deviceParameters" int
 );
 
 CREATE TABLE "DockerModels" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "dockerPayload" varchar,
   "version" int
 );
 
 CREATE TABLE "DockerInstances" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "dockerModelId" int,
   "version" int
 );
 
 CREATE TABLE "FeatureModels" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "description" varchar,
   "algClassSequenceJSON" json,
   "inputDeviceClassReqsJSON" json,
@@ -101,7 +99,7 @@ CREATE TABLE "FeatureModels" (
 );
 
 CREATE TABLE "FeatureInstances" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "projectId" int,
   "featureModelId" int,
   "highLevelFidelityJSON" json,
@@ -111,8 +109,8 @@ CREATE TABLE "FeatureInstances" (
 );
 
 CREATE TABLE "AlgorithmModels" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "name" varchar(255),
   "description" varchar,
   "preprocessor" varchar,
   "architectureId" int,
@@ -120,50 +118,48 @@ CREATE TABLE "AlgorithmModels" (
   "payload" varchar,
   "HyperparameterStructureJSON" json,
   "ValidationStructureJSON" json,
-  "class" bool,
+  "class" varchar(3),
   "isTrainable" bool,
-  "initWeights" int,
+  "initWeightsId" int,
   "version" int
 );
 
 CREATE TABLE "AlgorithmInstances" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "projectId" int,
-  "featureInstanceId" int,
   "algorithmModelId" int,
   "weightId" int,
   "version" int,
-  "status" varchar,
+  "status" varchar(3),
   "currentValidationJSON" json,
   "progressPercentage" int,
   "validationHistoryJSON" json,
-  "currentInstructions" int,
-  "creationDate" timestamp,
+  "creationDate" timestamp DEFAULT (now()),
   "trainingLog" varchar
 );
 
 CREATE TABLE "ObjectModels" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "description" varchar,
-  "objectFile" varchar,
+  "objectFile" varchar(255),
   "version" int
 );
 
 CREATE TABLE "Architectures" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "description" varchar,
   "payload" varchar,
   "version" int
 );
 
 CREATE TABLE "Weights" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "payload" varchar,
   "version" int
 );
 
 CREATE TABLE "ProjectInstructions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "ProjectId" int,
   "dataAcqInstId" int,
   "annotInstId" int,
@@ -174,7 +170,7 @@ CREATE TABLE "ProjectInstructions" (
 );
 
 CREATE TABLE "DataAcqInstructions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "videoDownload" boolean,
   "videoDownloadParamsJSON" json,
   "realDataParamsJSON" json,
@@ -183,29 +179,29 @@ CREATE TABLE "DataAcqInstructions" (
 );
 
 CREATE TABLE "AnnotationInstructions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "outsourcedMetaJSON" json,
   "SDGtwo" boolean,
   "SDGtwoInstJSON" json
 );
 
 CREATE TABLE "OutsourcedInst" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "name" varchar(255),
   "annotInstId" int,
   "questionXMLid" int,
   "frameDatasetId" int,
-  "labelName" varchar,
-  "labelDescription" varchar,
-  "HITsetName" varchar,
-  "HITsetDescription" varchar,
+  "labelName" varchar(255),
+  "labelDescription" varchar(255),
+  "HITsetName" varchar(255),
+  "HITsetDescription" varchar(255),
   "tOneMetadataJSON" json,
   "tTwoMetadataJSON" json
 );
 
 CREATE TABLE "QuestionXMLs" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "name" varchar(255),
   "description" varchar,
   "answerFieldsJSON" json,
   "exampleFramesJSON" json,
@@ -221,7 +217,7 @@ CREATE TABLE "QuestionXMLs" (
 );
 
 CREATE TABLE "HITsets" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "datasetId" int,
   "assocLabelsetId" int,
   "tOneWorkerBlacklistJSON" json,
@@ -248,28 +244,28 @@ CREATE TABLE "HITsets" (
 );
 
 CREATE TABLE "LabelClasses" (
-  "id" SERIAL PRIMARY KEY,
-  "className" varchar,
-  "classDescription" varchar,
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "className" varchar(255),
+  "classDescription" varchar(255),
   "UItool" varchar,
-  "conflictDefinition" varchar,
+  "conflictDefinition" varchar(255),
   "isConflictArg" boolean,
   "isArgument" boolean,
-  "argumentType" varchar,
-  "jsonStructure" varchar
+  "argumentType" varchar(255),
+  "structure" json
 );
 
 CREATE TABLE "Workers" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "associatedHITsetsJSON" json,
   "tOneAssignmentsDone" int,
   "tOneRating" real,
   "tTwoAssignmentsDone" int,
-  "tTwoRating" int
+  "tTwoRating" real
 );
 
 CREATE TABLE "OperationInstances" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "frameDatasetId" int,
   "operationClassId" int,
   "parametersJSON" json,
@@ -278,7 +274,7 @@ CREATE TABLE "OperationInstances" (
 );
 
 CREATE TABLE "OperationClasses" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "className" varchar,
   "argNamesJSON" json,
   "argTypesJSON" json,
@@ -287,46 +283,44 @@ CREATE TABLE "OperationClasses" (
 );
 
 CREATE TABLE "AugmentationInstructions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "frameDatasetId" int,
   "projectId" int,
   "augOperationsJSON" json
 );
 
 CREATE TABLE "TrainingInstructions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "dataSplitInst" int,
-  "algModelID" int,
-  "algInstID" int,
   "hyperparametersJSON" json
 );
 
 CREATE TABLE "QualityMetricStruct" (
-  "id" SERIAL PRIMARY KEY,
-  "Name" varchar,
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "Name" varchar(255),
   "Payload" varchar,
-  "Type" varchar
+  "Type" varchar(255)
 );
 
 CREATE TABLE "DataSplitInstructions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "metadataJSON" json
 );
 
 CREATE TABLE "ValidationInstructions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "metadataJSON" json
 );
 
 CREATE TABLE "RelevantData" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "deviceInstanceId" int,
   "projectId" int,
   "edgeNodeId" int,
   "featureModelId" int,
   "sensorGpsLat" decimal,
   "sensorGpsLong" decimal,
-  "relDataType" varchar,
+  "relDataType" varchar(255),
   "value" int,
   "objectModelId" int,
   "locationX" decimal,
@@ -334,22 +328,23 @@ CREATE TABLE "RelevantData" (
   "locationZ" decimal,
   "orientTheta" decimal,
   "orientPhi" decimal,
-  "timestamp" timestamp,
+  "timestamp" timestamp DEFAULT (now()),
   "isTaggedData" bool,
   "taggedDataId" int,
   "parametersJSON" json
 );
 
 CREATE TABLE "Frames" (
-  "id" SERIAL PRIMARY KEY,
-  "frameFile" varchar,
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "frameFile" varchar(255),
   "timestamp" timestamp,
-  "frameDatasetId" int
+  "frameDatasetId" int,
+  "isValidation" bool
 );
 
 CREATE TABLE "FrameDatasets" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "name" varchar(255),
   "isContinuous" boolean,
   "timeStart" int,
   "timeEnd" int,
@@ -362,16 +357,16 @@ CREATE TABLE "FrameDatasets" (
 );
 
 CREATE TABLE "LabelDatasets" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "parentFrameDatasetId" int,
-  "labelName" varchar,
+  "labelName" varchar(255),
   "labelDescription" varchar,
   "parentAlgorithmModelId" int,
   "labelClass" int
 );
 
 CREATE TABLE "LabelData" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "dataProper" int,
   "labelDatasetId" int,
   "isVoid" bool,
@@ -381,7 +376,7 @@ CREATE TABLE "LabelData" (
 );
 
 CREATE TABLE "DeviceParameters" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "isSensor" boolean,
   "isECU" boolean,
   "isCamera" boolean,
@@ -390,13 +385,13 @@ CREATE TABLE "DeviceParameters" (
   "isThermal" boolean,
   "isRadar" boolean,
   "modelNumber" int,
-  "manufacturer" varchar,
-  "name" varchar,
-  "email" varchar,
+  "manufacturer" varchar(255),
+  "name" varchar(255),
+  "email" varchar(255),
   "phone" int,
   "price" int,
   "DDPfin" int,
-  "IPcode" varchar,
+  "IPcode" varchar(255),
   "powerConsumption" int,
   "deviceSizeX" int,
   "deviceSizeY" int,
@@ -407,39 +402,33 @@ CREATE TABLE "DeviceParameters" (
   "lidarDataJSON" json,
   "illumDataJSON" json,
   "thermalDataJSON" json,
-  "radarDataJSON" json
+  "radarDataJSON" json,
+  "PowerDataJSON" json,
+  "OtherDataJSON" json
 );
 
----------------------------------------------------------
---------------- Settings tables -------------------------
----------------------------------------------------------
-
 CREATE TABLE "TypeCode" (
-  "typeName" varchar,
+  "typeName" varchar NOT NULL,
   "order" int,
   "value" varchar(3),
-  "shortDescription" varchar,
-  "longDescription" varchar,
-  "created_dt" timestamp,
+  "shortDescription" varchar(255),
+  "longDescription" varchar(255),
+  "created_dt" timestamp DEFAULT (now()),
   "created_by" varchar
 );
 
----------------------------------------------------------
---------------- ITMF tables  ---------------------------
----------------------------------------------------------
-
 CREATE TABLE "DetectedObjects" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "edgeNodeId" int,
   "objectType" varchar(3),
-  "created_dt" timestamp,
+  "created_dt" timestamp DEFAULT (now()),
   "fileId" int,
   "parametersJSON" json
 );
 
 CREATE TABLE "EventsHistory" (
-  "id" SERIAL PRIMARY KEY,
-  "created_dt" timestamp,
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "created_dt" timestamp DEFAULT (now()),
   "edgeNodeId" int,
   "eventType" varchar(3),
   "verificationResult" varchar(3),
@@ -447,28 +436,24 @@ CREATE TABLE "EventsHistory" (
 );
 
 CREATE TABLE "DetectionsSummary" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "edgeNodeId" int,
-  "observationDate" date,
+  "observationDate" date DEFAULT (now()),
   "parametersJSON" json
 );
 
 CREATE TABLE "RoadConditions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "edgeNodeId" int,
-  "created_dt" timestamp,
+  "created_dt" timestamp DEFAULT (now()),
   "parametersJSON" json
 );
 
 CREATE TABLE "FileStorage" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "fileType" varchar(3),
-  "link" varchar
+  "link" varchar(255)
 );
-
----------------------------------------------------------
---------------- Many-many-tables  -----------------------
----------------------------------------------------------
 
 CREATE TABLE "ProjectEdgeNodes" (
   "projectId" int,
@@ -483,13 +468,13 @@ CREATE TABLE "EcosystemsEdgeNodes" (
 CREATE TABLE "EdgeNodeDevices" (
   "edgeNodeId" int,
   "deviceInstanceId" int,
-  "type" varchar
+  "type" varchar(3)
 );
 
 CREATE TABLE "DockerModelDeviceClasses" (
   "dockerModelId" int,
   "deviceClassId" int,
-  "type" varchar
+  "type" varchar(3)
 );
 
 CREATE TABLE "DockerModelFeatureModel" (
@@ -547,19 +532,10 @@ CREATE TABLE "TrainingInstructionsLabelDatasets" (
   "labelDatasetId" int
 );
 
-CREATE TABLE "VLDFrameDatasetsFrames" (
-  "frameDatasetId" int,
-  "frameId" int
-);
-
 CREATE TABLE "FrameDatasetsProjects" (
   "frameDatasetId" int,
   "projectId" int
 );
-
----------------------------------------------------------
---------------- Foreign keys  ---------------------------
----------------------------------------------------------
 
 ALTER TABLE "Users" ADD FOREIGN KEY ("organizationId") REFERENCES "Organisations" ("id");
 
@@ -577,8 +553,6 @@ ALTER TABLE "EdgeNodes" ADD FOREIGN KEY ("organisationId") REFERENCES "Organisat
 
 ALTER TABLE "EdgeNodes" ADD FOREIGN KEY ("dockerInstanceId") REFERENCES "DockerInstances" ("id");
 
-ALTER TABLE "DeviceInstances" ADD FOREIGN KEY ("edgeNodeId") REFERENCES "EdgeNodes" ("id");
-
 ALTER TABLE "DeviceInstances" ADD FOREIGN KEY ("deviceClassId") REFERENCES "DeviceClasses" ("id");
 
 ALTER TABLE "DeviceClasses" ADD FOREIGN KEY ("deviceParameters") REFERENCES "DeviceParameters" ("id");
@@ -593,17 +567,13 @@ ALTER TABLE "FeatureInstances" ADD FOREIGN KEY ("parentECUclass") REFERENCES "De
 
 ALTER TABLE "AlgorithmModels" ADD FOREIGN KEY ("architectureId") REFERENCES "Architectures" ("id");
 
-ALTER TABLE "AlgorithmModels" ADD FOREIGN KEY ("initWeights") REFERENCES "Weights" ("id");
+ALTER TABLE "AlgorithmModels" ADD FOREIGN KEY ("initWeightsId") REFERENCES "Weights" ("id");
 
 ALTER TABLE "AlgorithmInstances" ADD FOREIGN KEY ("projectId") REFERENCES "Projects" ("id");
-
-ALTER TABLE "AlgorithmInstances" ADD FOREIGN KEY ("featureInstanceId") REFERENCES "FeatureInstances" ("id");
 
 ALTER TABLE "AlgorithmInstances" ADD FOREIGN KEY ("algorithmModelId") REFERENCES "AlgorithmModels" ("id");
 
 ALTER TABLE "AlgorithmInstances" ADD FOREIGN KEY ("weightId") REFERENCES "Weights" ("id");
-
-ALTER TABLE "AlgorithmInstances" ADD FOREIGN KEY ("currentInstructions") REFERENCES "TrainingInstructions" ("id");
 
 ALTER TABLE "ProjectInstructions" ADD FOREIGN KEY ("ProjectId") REFERENCES "Projects" ("id");
 
@@ -640,10 +610,6 @@ ALTER TABLE "AugmentationInstructions" ADD FOREIGN KEY ("frameDatasetId") REFERE
 ALTER TABLE "AugmentationInstructions" ADD FOREIGN KEY ("projectId") REFERENCES "Projects" ("id");
 
 ALTER TABLE "TrainingInstructions" ADD FOREIGN KEY ("dataSplitInst") REFERENCES "DataSplitInstructions" ("id");
-
-ALTER TABLE "TrainingInstructions" ADD FOREIGN KEY ("algModelID") REFERENCES "AlgorithmModels" ("id");
-
-ALTER TABLE "TrainingInstructions" ADD FOREIGN KEY ("algInstID") REFERENCES "AlgorithmInstances" ("id");
 
 ALTER TABLE "RelevantData" ADD FOREIGN KEY ("deviceInstanceId") REFERENCES "DeviceInstances" ("id");
 
@@ -740,10 +706,6 @@ ALTER TABLE "OperationClassesSupportedLabelClasses" ADD FOREIGN KEY ("labelClass
 ALTER TABLE "TrainingInstructionsLabelDatasets" ADD FOREIGN KEY ("TrainingInstId") REFERENCES "TrainingInstructions" ("id");
 
 ALTER TABLE "TrainingInstructionsLabelDatasets" ADD FOREIGN KEY ("labelDatasetId") REFERENCES "LabelDatasets" ("id");
-
-ALTER TABLE "VLDFrameDatasetsFrames" ADD FOREIGN KEY ("frameDatasetId") REFERENCES "FrameDatasets" ("id");
-
-ALTER TABLE "VLDFrameDatasetsFrames" ADD FOREIGN KEY ("frameId") REFERENCES "Frames" ("id");
 
 ALTER TABLE "FrameDatasetsProjects" ADD FOREIGN KEY ("frameDatasetId") REFERENCES "FrameDatasets" ("id");
 

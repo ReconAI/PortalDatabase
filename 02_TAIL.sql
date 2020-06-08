@@ -39,5 +39,24 @@ VALUES
 ('EnumVerificationResults',0,'POS','Positive','Positive',getdate(),'initial data'),
 ('EnumVerificationResults',1,'NEG','Negative','Negative',getdate(),'initial data'),
 
-('EnumFileTypes',1,'IMG','Image','Image',getdate(),'initial data'),
-('EnumFileTypes',1,'CAD','CAD Drawing','CAD Drawing',getdate(),'initial data')
+('EnumFileTypes',0,'IMG','Image','Image',getdate(),'initial data'),
+('EnumFileTypes',1,'CAD','CAD Drawing','CAD Drawing',getdate(),'initial data'),
+
+('EnumUserLevels',0,'ADM','Administrator','Administrator',getdate(),'initial data'),
+('EnumUserLevels',1,'SUS','Super User','Super User',getdate(),'initial data'),
+('EnumUserLevels',2,'USR','User','User',getdate(),'initial data'),
+
+('EnumLicenseTypes',0,'REG','Regular License','Regular License',getdate(),'initial data'),
+
+('EnumAlgorithmClasses',0,'NN','Neural Network','Neural Network',getdate(),'initial data'),
+('EnumAlgorithmClasses',1,'ML','Machine Learning','Machine Learning',getdate(),'initial data'),
+
+
+('EnumAlgorithmStatuses',0,'ITR','In Training','Training in progress',getdate(),'initial data'),
+('EnumAlgorithmStatuses',1,'ERR','Error','Error',getdate(),'initial data'),
+('EnumAlgorithmStatuses',2,'CMP','Training Completed','Training Completed',getdate(),'initial data'),
+('EnumAlgorithmStatuses',3,'DPL','Deployed','Deployed',getdate(),'initial data'),
+
+('EnumDeviceTypes',0,'ECU','ECU','ECU',getdate(),'initial data'),
+('EnumDeviceTypes',1,'IDE','idev','idev',getdate(),'initial data'),
+('EnumDeviceTypes',2,'MDE','mdev','mdev',getdate(),'initial data')
