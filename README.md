@@ -15,6 +15,10 @@ Project contains 3 scripts:
 3. 02_TAIL.sql - population of some tables with data (TypeCode)
 **Combine all three scripts into one and apply at the database**
 
+## Utilities
+
+Use GenerateDBSCript.bat to merge HEAD, BODY and TAIL files in one
+
 ## AWS database connection (putty)
 
 1. Aquire bastion private key (.pem)
