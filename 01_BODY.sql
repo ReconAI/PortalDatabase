@@ -21,9 +21,9 @@ CREATE TABLE Users (
   lastname varchar(255),
   address varchar(255),
   phone varchar(255),
-  email varchar(255),
+  email varchar(255) UNIQUE NOT NULL,
   created_dt timestamp DEFAULT (now()),
-  username varchar(255) UNIQUE,
+  username varchar(255) UNIQUE NOT NULL,
   password varchar(255),
   user_level varchar(3)
 );
